@@ -18,6 +18,10 @@ const addTodoList = () => {
      inputCategory.value = ""
      console.log(todoList)
 }
+
+const removeTodo = (todo) =>{
+     todoList.value = todoList.value.filter(t => t !==todo)
+}
 </script>
 
 <template>
@@ -65,6 +69,9 @@ const addTodoList = () => {
                          </label>
                          <div class="todo-content">
                               <input type="text" v-model="todo.content"/>
+                         </div>
+                         <div  class="actions">
+                              <button class="delete" @click="removeTodo(todo)">Delete</button>
                          </div>
                     </div>
                </div>
