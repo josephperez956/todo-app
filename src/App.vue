@@ -1,5 +1,5 @@
 <script>
-import {ref} from 'vue'
+import {ref, onMounted, watch} from 'vue'
 const name = ref('')
 const todoList = ref([])
 const inputContent = ref('')
@@ -22,6 +22,19 @@ const addTodoList = () => {
 const removeTodo = (todo) =>{
      todoList.value = todoList.value.filter(t => t !==todo)
 }
+
+onMounted( () => {
+     name.value = localStorage.getItem('name') ||  ""
+     todoList.value = JSON.parse(localStorage.getItem('todoList')) || []
+})
+
+watch(name, (newVal) => {
+     localStorage.setItem('name', newVal)
+})
+
+watch(todoList, (newVal) => {
+     localStorage.setItem('todoList', JSON.stringify(newVal))
+}, {deep: true})
 </script>
 
 <template>
