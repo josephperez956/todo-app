@@ -5,15 +5,17 @@ const todoList = ref([])
 const inputContent = ref('')
 const inputCategory = ref(null)
 const addTodoList = () => {
-     if(inputContent.value.trim()==='' || inputCategory.value == null) {
+     if(inputContent.value.trim()==="" || inputCategory.value == null) {
+          console.log("testing")
           return
      }
      todoList.value.push({
           content: inputContent.value,
           category: inputCategory = n,
+          done: false,
      })
-     inputContent.value = ''
-     inputCategory.value = ''
+     inputContent.value = ""
+     inputCategory.value = ""
      console.log(todoList)
 }
 </script>
@@ -49,10 +51,23 @@ const addTodoList = () => {
 
                          {{ inputCategory }}
                     </div>
+
+                    <input type="submit"  value="Add To Do" />
                </form>
           </section>
-          <section class="todo-list">
 
+          <section class="todo-list">
+               <div class="list">
+                    <div v-for="todo in todoList" :class="`todo-item ${todo.done ? 'done' : 'not-done'}`" :key="todo">
+                         <label>
+                              <input type="checkbox" v-model="todo.done"/>
+                              <span :class="`bubble ${todo.category}`"></span>
+                         </label>
+                         <div class="todo-content">
+                              <input type="text" v-model="todo.content"/>
+                         </div>
+                    </div>
+               </div>
           </section>
      </main>
 </template>
